@@ -86,6 +86,41 @@ app.post('/movie', (req, res) => {
   })
   res.sendStatus(200)
 })
+
+
+app.delete('/movie/:id', (req, res) => {
+  const titulo = req.body.titulo
+  const id = req.params.id
+  if(isNaN(id)){
+    res.sendStatus(400)
+  }else{
+    let _movie = db.filmes.find(movie => movie.id == id)
+    if(_movie == undefined){
+      res.sendStatus(404)
+    }else{
+      db.filmes.splice(_movie, 1)
+      res.sendStatus(200)
+    }
+  }
+})
+
+// Atualizar titulo:
+app.put('/movie/:id', (req, res) => {
+    const titulo = req.body.titulo
+    const _id = req.params.id
+    if(isNaN(_id)){
+        res.sendStatus(400)
+    }else{
+      let _movie = db.filmes.find(movie => movie.id == _id)
+      if(_movie == undefined){
+        res.sendStatus(404)
+      }else{
+        _movie.titulo = titulo
+        res.sendStatus(200)
+      }
+}
+})
+
 app.listen(8080, () => {
     console.log("Server está rodando com sucesso")
 })
