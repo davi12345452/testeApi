@@ -52,14 +52,16 @@ app.get('/movies', (req, res) => {
 app.get('/movies/:id', (req, res) => {
     const _id = req.params.id
     if(isNaN(_id)){
-        res.send("Error")
+        res.sendStatus(400)
     }else{
-        let element;
-        db.filmes.forEach(a => {
-            if(a.id == _id){
-                res.json(a)
-            }
-        })
+      let _movie = db.filmes.find(movie => movie.id == _id)
+      if(_movie == undefined){
+        res.sendStatus(404)
+      }else{
+        let statusCode = 200
+        res.json(_movie)
+      }
+
     }
 })
 app.listen(8080, () => {
