@@ -49,7 +49,7 @@ app.get('/movies', (req, res) => {
 
 // Rota para pegar filmes por Id
 
-app.get('/movies/:id', (req, res) => {
+app.get('/movie/:id', (req, res) => {
     const _id = req.params.id
     if(isNaN(_id)){
         res.sendStatus(400)
@@ -63,6 +63,28 @@ app.get('/movies/:id', (req, res) => {
       }
 
     }
+})
+
+app.post('/movie', (req, res) => {
+  id = req.body.id
+  titulo = req.body.titulo
+  ano = req.body.ano
+  genero = req.body.genero
+  diretor = req.body.diretor
+  atores = req.body.atores
+  sinopse = req.body.sinopse
+  avaliacao = req.body.avaliacao
+  db.filmes.push({
+    id: id,
+    titulo: titulo,
+    ano: ano,
+    genero: genero,
+    diretor: diretor,
+    atores: atores,
+    sinopse: sinopse,
+    avaliacao: avaliacao
+  })
+  res.sendStatus(200)
 })
 app.listen(8080, () => {
     console.log("Server está rodando com sucesso")
