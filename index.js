@@ -1,6 +1,9 @@
 const express = require('express')
 const b_parser = require('body-parser')
 const app = express()
+const cors = require('cors')
+
+app.use(cors())
 
 const db = {
     "filmes": [
